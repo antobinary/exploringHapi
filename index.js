@@ -3,15 +3,13 @@ var server = Hapi.createServer('0.0.0.0', parseInt(process.env.PORT, 10) || 4000
 console.log ("check");
 server.start();
 
-
 var Joi = require('joi');
-
 
 var schema = {
 	attendeePW: Joi.string().max(20).required(),
 	meetingID: Joi.string().min(3).max(30).required(),
 	moderatorPW: Joi.string().required(),
-	name: Joi.string().regex(/[a-zA-Z0-9]{3,30}/).min(2).max(20),
+	name: Joi.string().regex(/[a-zA-Z0-9]{3,30}/),
 	record: Joi.boolean(),
 	voiceBridge: Joi.string(),
 	welcome: Joi.string(),
@@ -33,13 +31,10 @@ server.route({
 			checksum: req.query.checksum, 
 	}, schema);
 	
-    reply("err=" + err);
+  
+	if(err == null)
+	   reply("everything is fine");
+	else
+	   reply(err);
   }
 });
-
-
-
-
-
-
-
