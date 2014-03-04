@@ -3,34 +3,43 @@ var server = Hapi.createServer('0.0.0.0', parseInt(process.env.PORT, 10) || 4000
 console.log ("check");
 server.start();
 
-//Go to  192.168.0.231:4000/bigbluebutton/api and you will see "BBBBBBB"
-server.route({
-  method: 'GET'
-, path: '/bigbluebutton/api'
-, handler: function(req, reply) {
-    reply('BBBBBBBBBBB' + err);
-  }
-});
-
 
 var Joi = require('joi');
 
 
 var schema = {
-    a: Joi.string()
+	attendeePW: Joi.string().max(20).required(),
+	meetingID: Joi.string().min(3).max(30).required(),
+	moderatorPW: Joi.string().required(),
+	name: Joi.string().regex(/[a-zA-Z0-9]{3,30}/).min(2).max(20),
+	record: Joi.boolean(),
+	voiceBridge: Joi.string(),
+	welcome: Joi.string(),
+	checksum: Joi.string()
 };
-
-
-var err = Joi.validate({ a: true }, schema);
-
 
 server.route({
   method: 'GET'
 , path: '/bigbluebutton/api/create'
 , handler: function(req, reply) {
-    console.log (req.query.attendeePW);
-    reply(req.query.attendeePW
-+ "\n" + req.query.meetingID
-+ "\n" + req.query.moderatorPW);
+
+     var err = Joi.validate({attendeePW: req.query.attendeePW,
+			meetingID: req.query.meetingID,
+			moderatorPW: req.query.moderatorPW,
+			name: req.query.name, 
+			record: req.query.record,
+			voiceBridge: req.query.voiceBridge,
+			welcome: req.query.welcome,
+			checksum: req.query.checksum, 
+	}, schema);
+	
+    reply("err=" + err);
   }
 });
+
+
+
+
+
+
+
