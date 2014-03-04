@@ -16,10 +16,6 @@ server.route({
 var Joi = require('joi');
 
 
-
-
-
-
 var schema = {
     a: Joi.string()
 };
@@ -30,17 +26,20 @@ var err = Joi.validate({ a: true }, schema);
 
 server.route({
   method: 'GET'
-, path: '/bigbluebutton/api/create/{anton}'
+, path: '/bigbluebutton/api/create{attendeePW}'
 , handler: function(req, reply) {
-console.log (req.params.anton);
-    reply('BBBBBBBBBBB'+ req.params.anton);
+    console.log (JSON.parse(req.query.value));
+    reply('BBBBBBBBBBB'+ querystring.parse(req.query.value));
 	
   }
 });
 
-//http://192.168.0.231:4000/bigbluebutton/api/create/anton=ge     
-//BBBBBBBBBBBanton=ge
-
-
-
-
+server.route({
+  method: 'GET'
+, path: '/'
+, handler: function(req, reply) {
+    reply('CCCCCCCCCCC'+ req.query.anton);
+  }
+});
+//http://192.168.0.231:4000/?anton=ge#
+//CCCCCCCCCCCge
