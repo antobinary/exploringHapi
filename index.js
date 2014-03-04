@@ -26,20 +26,11 @@ var err = Joi.validate({ a: true }, schema);
 
 server.route({
   method: 'GET'
-, path: '/bigbluebutton/api/create{attendeePW}'
+, path: '/bigbluebutton/api/create'
 , handler: function(req, reply) {
-    console.log (JSON.parse(req.query.value));
-    reply('BBBBBBBBBBB'+ querystring.parse(req.query.value));
-	
+    console.log (req.query.attendeePW);
+    reply(req.query.attendeePW
++ "\n" + req.query.meetingID
++ "\n" + req.query.moderatorPW);
   }
 });
-
-server.route({
-  method: 'GET'
-, path: '/'
-, handler: function(req, reply) {
-    reply('CCCCCCCCCCC'+ req.query.anton);
-  }
-});
-//http://192.168.0.231:4000/?anton=ge#
-//CCCCCCCCCCCge
