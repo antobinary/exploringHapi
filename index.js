@@ -1,9 +1,8 @@
 var Hapi = require('hapi');
-var server = Hapi.createServer('0.0.0.0', parseInt(process.env.PORT, 10) || 4000);
-console.log ("check");
-server.start();
-
 var Joi = require('joi');
+
+var server = Hapi.createServer('0.0.0.0', parseInt(process.env.PORT, 10) || 4000);
+server.start();
 
 var schema = {
 	attendeePW: Joi.string().max(20).required(),
@@ -20,7 +19,6 @@ server.route({
   method: 'GET'
 , path: '/bigbluebutton/api/create'
 , handler: function(req, reply) {
-
      var err = Joi.validate({attendeePW: req.query.attendeePW,
 			meetingID: req.query.meetingID,
 			moderatorPW: req.query.moderatorPW,
@@ -31,7 +29,6 @@ server.route({
 			checksum: req.query.checksum, 
 	}, schema);
 	
-  
 	if(err == null)
 	   reply("everything is fine");
 	else
