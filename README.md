@@ -1,4 +1,4 @@
 exploringHapi
 =============
 Run:
-node . //or node index.js
+coffee index.coffee
