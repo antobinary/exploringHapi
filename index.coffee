@@ -4,7 +4,6 @@ sha1 = require('js-sha1')
 
 server = Hapi.createServer("0.0.0.0", parseInt(process.env.PORT, 10) or 4000)
 server.start()
-console.log "Listening on http://192.168.0.231:4000"
 
 schema =
   attendeePW: Joi.string().max(20).required()
