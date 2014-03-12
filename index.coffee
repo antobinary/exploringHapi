@@ -50,3 +50,9 @@ server.route
 
     unless incomingChecksum isnt urlChecksum
       console.log "YAY! They match!"
+    
+    #back to validation
+    if err is null
+      reply "everything is fine"
+    else
+      reply err
