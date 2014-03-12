@@ -49,6 +49,23 @@ server.route
 
     myChecksum = sha1(second)
     console.log "My API: Encrypting \n" + second + "\ninto "+ myChecksum
-    console.log "Comparing myChecksum:\n" + myChecksum + " and the incomingChecksum:\n" + incomingChecksum
+    #console.log "Comparing myChecksum:\n" + myChecksum + " and the incomingChecksum:\n" + incomingChecksum
+
+
+    third = "attendeePW=" + req.query.attendeePW if req.query.attendeePW isnt null
+    third += "&meetingID=" + req.query.meetingID if req.query.meetingID isnt null
+    third += "&moderatorPW=" + req.query.moderatorPW if req.query.moderatorPW isnt null
+    third += "&name=" + req.query.name if req.query.name isnt null
+    third += "&record=" + req.query.record if req.query.record isnt null
+    third += "&voiceBridge=" + req.query.voiceBridge if req.query.voiceBridge isnt null  
+    tmpWelcome = encodeURIComponent(req.query.welcome).replace(/%20/g, '+').replace(/[!'()]/g, escape).replace(/\*/g, "%2A")
+    third += "&welcome=" + tmpWelcome if req.query.welcome isnt null
+
+    method = "create"
+    query = third
+    str = method + query + salt;
+    
+    urlChecksum = sha1(str)
+    console.log "the checksum from url is \n" + incomingChecksum + "and mine is\n" + urlChecksum
 
     return
