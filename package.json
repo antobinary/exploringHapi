@@ -1,12 +1,14 @@
 {
   "name": "exploringHapi",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "start": "coffee index.coffee"
   },
   "dependencies": {
-    "hapi": "*",
-    "joi": "*"
+    "hapi": "2.6.0",
+    "joi": "2.7.0",
+    "js-sha1": "0.1.1",
+    "node-oauth": "0.1.3"
   }
 }
