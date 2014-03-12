@@ -42,7 +42,7 @@ server.route
     method = "create"
     query = third
     salt = "8cd8ef52e8e101574e400365b55e11a6"
-    
+
     str = method + query + salt;
 
     urlChecksum = sha1(str)
@@ -50,5 +50,3 @@ server.route
 
     unless incomingChecksum isnt urlChecksum
       console.log "YAY! They match!"
-
-    return
