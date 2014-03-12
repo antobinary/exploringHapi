@@ -35,23 +35,6 @@ server.route
     salt = "8cd8ef52e8e101574e400365b55e11a6"
     method = "GET"
 
-    query = "action=" + "create"
-    query += "&attendeePW=" + req.query.attendeePW if req.query.attendeePW isnt null
-    query += "&meetingID=" + req.query.meetingID if req.query.meetingID isnt null
-    query += "&moderatorPW=" + req.query.moderatorPW if req.query.moderatorPW isnt null
-    query += "&name=" + req.query.name if req.query.name isnt null
-    query += "&record=" + req.query.record if req.query.record isnt null
-    query += "&voiceBridge=" + req.query.voiceBridge if req.query.voiceBridge isnt null
-  
-    tmpWelcome = encodeURIComponent(req.query.welcome).replace(/%20/g, '+').replace(/[!'()]/g, escape).replace(/\*/g, "%2A")
-    query += "&welcome=" + tmpWelcome if req.query.welcome isnt null
-
-
-    query += "03b07" #mobile salt ?!?!?! could not get rid of it so I'm adding it hard-coded
-    #console.log "query1=" + query
-    #str = query + "&checksum=" + salt
-    #console.log "str" + str
-
     second = "action=create"
     second += "&attendeePW=" + req.query.attendeePW if req.query.attendeePW isnt null
     second += "&meetingID=" + req.query.meetingID if req.query.meetingID isnt null
