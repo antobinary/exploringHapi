@@ -29,29 +29,6 @@ server.route
       welcome: req.query.welcome
     , schema)
 
-
-    incomingChecksum = req.query.checksum
-
-    salt = "8cd8ef52e8e101574e400365b55e11a6"
-    method = "GET"
-
-    second = "action=create"
-    second += "&attendeePW=" + req.query.attendeePW if req.query.attendeePW isnt null
-    second += "&meetingID=" + req.query.meetingID if req.query.meetingID isnt null
-    second += "&moderatorPW=" + req.query.moderatorPW if req.query.moderatorPW isnt null
-    second += "&name=" + req.query.name if req.query.name isnt null
-    second += "&record=" + req.query.record if req.query.record isnt null
-    second += "&voiceBridge=" + req.query.voiceBridge if req.query.voiceBridge isnt null
-  
-    tmpWelcome = encodeURIComponent(req.query.welcome).replace(/%20/g, '+').replace(/[!'()]/g, escape).replace(/\*/g, "%2A")
-    second += "&welcome=" + tmpWelcome if req.query.welcome isnt null
-    second += "03b07"
-
-    myChecksum = sha1(second)
-    console.log "My API: Encrypting \n" + second + "\ninto "+ myChecksum
-    #console.log "Comparing myChecksum:\n" + myChecksum + " and the incomingChecksum:\n" + incomingChecksum
-
-
     third = "attendeePW=" + req.query.attendeePW if req.query.attendeePW isnt null
     third += "&meetingID=" + req.query.meetingID if req.query.meetingID isnt null
     third += "&moderatorPW=" + req.query.moderatorPW if req.query.moderatorPW isnt null
@@ -61,11 +38,17 @@ server.route
     tmpWelcome = encodeURIComponent(req.query.welcome).replace(/%20/g, '+').replace(/[!'()]/g, escape).replace(/\*/g, "%2A")
     third += "&welcome=" + tmpWelcome if req.query.welcome isnt null
 
+    incomingChecksum = req.query.checksum
     method = "create"
     query = third
-    str = method + query + salt;
+    salt = "8cd8ef52e8e101574e400365b55e11a6"
     
+    str = method + query + salt;
+
     urlChecksum = sha1(str)
-    console.log "the checksum from url is \n" + incomingChecksum + "and mine is\n" + urlChecksum
+    console.log "the checksum from url is \n" + incomingChecksum + " and mine is\n" + urlChecksum
+
+    unless incomingChecksum isnt urlChecksum
+      console.log "YAY! They match!"
 
     return
